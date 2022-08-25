@@ -26,25 +26,39 @@ function gameRound(userChoice, compChoice) {
   }
 }
 
+let getUserChoice = "";
+const rockBtn = document.querySelector('#btn-rock');
+rockBtn.addEventListener("click", () => {
+  getUserChoice = "rock";
+})
+const paperBtn = document.querySelector('#btn-paper');
+paperBtn.addEventListener("click", () => {
+  getUserChoice = "paper";
+})
+const scissorsBtn = document.querySelector('#btn-scissors');
+scissorsBtn.addEventListener("click", () => {
+  getUserChoice = "scissors";
+})
+
 
 function game() {
     let userScore = 0;
     let compScore = 0;
-    for (let i = 0; i < 5; i++) {
-        let compChoice = getComputerChoice();
-        let userChoice = prompt("Your move: ").toLowerCase();
-        let result = gameRound(userChoice, compChoice);
-        if (result === "Computer wins") {
-            console.log("Computer gets point");
-            compScore++;
-        }  else if (result === "User wins"){
-            console.log("User gets point");
-            userScore++;
-        } else {
-            console.log("No one gets point");
-        }
-}
-
+    while (userScore < 5 && compScore < 5) {
+      let compChoice = getComputerChoice();
+      let userChoice = getUserChoice;
+      console.log(userChoice);
+      let result = gameRound(userChoice, compChoice);  
+          if (result === "Computer wins") {
+              console.log("Computer gets point");
+              compScore++;
+          }  else if (result === "User wins"){
+              console.log("User gets point");
+              userScore++;
+          } else {
+              console.log("No one gets point");
+          }
+    }
 console.log(`Score: User ${userScore} vs Computer ${compScore}`);
 if (userScore > compScore) {
     console.log(`User wins.`);
@@ -54,3 +68,18 @@ if (userScore > compScore) {
     console.log("Its a tie");
   }
 }
+
+let userScore = 0;
+let compScore = 0;
+
+document.querySelector("#game").addEventListener("click", function () {
+  if (userScore === 5) {
+    let userWin = document.createElement("p");
+    userWin.innerText = "User wins";
+    document.querySelector("#score").appendChild(userWin);
+  } else if (compScore === 5) {
+    let compWin = document.createElement("p");
+    compWin.innerText = "Computer wins";
+    document.querySelector("#score").appendChild(compWin);
+  }
+})
