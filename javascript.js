@@ -26,22 +26,7 @@ function gameRound(userChoice, compChoice) {
   }
 }
 
-let getUserChoice = "";
-const rockBtn = document.querySelector('#btn-rock');
-rockBtn.addEventListener("click", () => {
-  getUserChoice = "rock";
-})
-const paperBtn = document.querySelector('#btn-paper');
-paperBtn.addEventListener("click", () => {
-  getUserChoice = "paper";
-})
-const scissorsBtn = document.querySelector('#btn-scissors');
-scissorsBtn.addEventListener("click", () => {
-  getUserChoice = "scissors";
-})
-
-
-function game() {
+/* function game() {
     let userScore = 0;
     let compScore = 0;
     while (userScore < 5 && compScore < 5) {
@@ -68,18 +53,66 @@ if (userScore > compScore) {
     console.log("Its a tie");
   }
 }
-
+ */
+let getUserChoice = "";
 let userScore = 0;
 let compScore = 0;
+let playerScoreTicker = document.querySelector("#player");
+let computerScoreTicker = document.querySelector("#computer");
+let currentWinner = document.querySelector("#current-winner")
 
-document.querySelector("#game").addEventListener("click", function () {
+const rockBtn = document.querySelector('#btn-rock');
+rockBtn.addEventListener("click", () => {
+  getUserChoice = "rock";
+})
+const paperBtn = document.querySelector('#btn-paper');
+paperBtn.addEventListener("click", () => {
+  getUserChoice = "paper";
+})
+const scissorsBtn = document.querySelector('#btn-scissors');
+scissorsBtn.addEventListener("click", () => {
+  getUserChoice = "scissors";
+})
+
+
+document.querySelector(".buttons").addEventListener("click", function () {
+    let compChoice = getComputerChoice();
+    let userChoice = getUserChoice;
+    console.log(userChoice);
+    let result = gameRound(userChoice, compChoice);  
+        if (result === "Computer wins") {
+            console.log("Computer gets point");
+            compScore++;
+            computerScoreTicker.innerText = compScore;
+        }  else if (result === "User wins"){
+            console.log("User gets point");
+            userScore++;
+            playerScoreTicker.innerText = userScore;
+        } else {
+            console.log("No one gets point");
+        }
   if (userScore === 5) {
-    let userWin = document.createElement("p");
-    userWin.innerText = "User wins";
-    document.querySelector("#score").appendChild(userWin);
+    rockBtn.disabled = true;
+    paperBtn.disabled = true;
+    scissorsBtn.disabled = true;
+    currentWinner.innerText = "User";
   } else if (compScore === 5) {
-    let compWin = document.createElement("p");
-    compWin.innerText = "Computer wins";
-    document.querySelector("#score").appendChild(compWin);
+    rockBtn.disabled = true;
+    paperBtn.disabled = true;
+    scissorsBtn.disabled = true;
+    currentWinner.innerText = "Computer";
   }
 })
+
+document.querySelector("#btn-restart").addEventListener("click", () => {
+  userScore = 0;
+  compScore = 0;
+  playerScoreTicker.innerText = 0;
+  computerScoreTicker.innerText = 0;
+  rockBtn.disabled = false;
+  paperBtn.disabled = false;
+  scissorsBtn.disabled = false;
+  currentWinner.innerText = "";
+})
+
+
